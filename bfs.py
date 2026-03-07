@@ -8,6 +8,8 @@ def resoudre_bfs(grille, anime=False):
     """
     Algorithme Breadth-First Search (Recherche en largeur).
     Utilise une file (FIFO) pour garantir le chemin le plus court.
+
+    le paramètre 'anime' permet de déterminer s'il faut afficher chaque étape de l'exploration
     """
     debut_t = time.perf_counter()
     file = deque([START])

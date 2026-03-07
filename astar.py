@@ -9,6 +9,8 @@ def resoudre_astar(grille, anime=False):
     Algorithme A* (A-Star).
     Utilise une file de priorité et une heuristique (Manhattan).
     f(n) = g(n) + h(n)
+
+    le paramètre 'anime' permet de déterminer s'il faut afficher chaque étape de l'exploration
     """
     debut_t = time.perf_counter()
     
@@ -22,6 +24,8 @@ def resoudre_astar(grille, anime=False):
     parents = {START: None}
     explores = []
 
+    # Les 16 lignes laissées vides ci-dessous vont permettre d'afficher étape par étape le 
+    # processus d'exploration
     print("\n" * 16)
 
     while pq:
@@ -45,8 +49,7 @@ def resoudre_astar(grille, anime=False):
                     heapq.heappush(pq, (f, nxt))
 
         if anime:              
-            # afficher_etape(grille, explores, "A* : Exploration en cours ---- ")
-            # print("\n" * 16)
+            # afficher chaque étape de l'exploration si le paramètre 'anime' est vrai            
             rafraichir_labyrinthe(grille, explores, "Exploration A* en cours...", premiere_fois=False)
 
     fin_t = time.perf_counter()

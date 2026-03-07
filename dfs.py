@@ -9,6 +9,8 @@ def resoudre_dfs(grille, anime=False):
     Algorithme Depth-First Search (Recherche en profondeur).
     Utilise une pile (LIFO) pour explorer chaque branche jusqu'au bout.
     Priorité : Droite, Bas, Gauche, Haut.
+
+    le paramètre 'anime' permet de déterminer s'il faut afficher chaque étape de l'exploration
     """
     debut_t = time.perf_counter()
     pile = [START]
