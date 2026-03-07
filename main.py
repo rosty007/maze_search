@@ -3,6 +3,12 @@ from dfs import resoudre_dfs
 from bfs import resoudre_bfs
 from astar import resoudre_astar
 
+import argparse
+
+parser = argparse.ArgumentParser(description='')
+parser.add_argument('--print_steps', default='N', help='Y/N, pour afficher les étapes d\'exploration de chaque algo')
+
+
 def afficher_comparaison_statistiques(resultats):
     """
     Affiche un tableau comparatif des statistiques des algorithmes.
@@ -27,6 +33,13 @@ def afficher_comparaison_statistiques(resultats):
 
 def main():
     print("Début exécution du programme principal de DevoirI")
+    args = parser.parse_args()
+    
+    print_steps = args.print_steps
+    PRINT_STEPS = False
+    if print_steps == 'Y' or print_steps == 'y':
+        PRINT_STEPS = True
+    
     # --- PROGRAMME PRINCIPAL ---
 
     laby = generer_labyrinthe(seed=123)
@@ -40,9 +53,9 @@ def main():
     for nom, fonction in algos:
         print(f"\n{'-'*30}\n{nom}\n{'-'*30}")
         if fonction == resoudre_dfs:
-            exp, sol, t = fonction(laby, anime=True)
+            exp, sol, t = fonction(laby, anime=PRINT_STEPS)
         else:
-            exp, sol, t = fonction(laby, True)
+            exp, sol, t = fonction(laby, PRINT_STEPS)
         
         # On stocke les résultats pour le tableau final
         stats_collectees.append((nom.split(" (")[0], len(exp), len(sol), t))

@@ -3,6 +3,7 @@ from collections import deque
 import os, sys
 import time
 
+    
 
 # --- CONFIGURATION GLOBALE ---
 TAILLE = 16
