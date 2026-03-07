@@ -39,7 +39,10 @@ def main():
     stats_collectees = []
     for nom, fonction in algos:
         print(f"\n{'-'*30}\n{nom}\n{'-'*30}")
-        exp, sol, t = fonction(laby)
+        if fonction == resoudre_dfs:
+            exp, sol, t = fonction(laby, anime=True)
+        else:
+            exp, sol, t = fonction(laby, True)
         
         # On stocke les résultats pour le tableau final
         stats_collectees.append((nom.split(" (")[0], len(exp), len(sol), t))
@@ -58,6 +61,6 @@ def main():
 
     # Affichage final du tableau comparatif
     afficher_comparaison_statistiques(stats_collectees)
-    
+
 if __name__ == "__main__":
     main()

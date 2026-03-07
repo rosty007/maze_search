@@ -1,5 +1,7 @@
 import random
 from collections import deque
+import os, sys
+import time
 
 
 # --- CONFIGURATION GLOBALE ---
@@ -77,3 +79,47 @@ def formater_chemin_str(chemin):
     etapes[0] = f"S{etapes[0]}"
     etapes[-1] = f"G{etapes[-1]}"
     return " -> ".join(etapes)
+
+
+def effacer_console():
+    """Efface le contenu de la console selon le système d'exploitation."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def afficher_etape(grille, explores, titre, delay=0.25):
+    """Affiche une 'frame' de l'exploration."""
+    effacer_console()
+    print(f"--- {titre} ---")
+    # On crée une copie pour l'affichage
+    visu = [ligne[:] for ligne in grille]
+    for (x, y) in explores:
+        if visu[x][y] not in ('S', 'G'):
+            visu[x][y] = 'p'
+    
+    for ligne in visu:
+        print(" ".join(ligne))
+    time.sleep(delay)
+
+
+def rafraichir_labyrinthe(grille, explores, titre, delay=0.5, premiere_fois=False):
+    """
+    Met à jour l'affichage pendant l'exploration par l'algorithme pour voir étape par étape le parcours.
+    """
+    # Si ce n'est pas le premier affichage, on remonte le curseur de 17 lignes
+    if not premiere_fois:
+        # \033[F déplace le curseur au début de la ligne précédente
+        sys.stdout.write("\033[F" * 17)
+    
+    # Préparation de l'affichage
+    visu = [ligne[:] for ligne in grille]
+    for (x, y) in explores:
+        if visu[x][y] not in ('S', 'G'):
+            visu[x][y] = 'p'
+    
+    # Reconstruction de la chaîne de caractères pour un affichage atomique (évite le clignotement)
+    output = f"{titre}\n"
+    for ligne in visu:
+        output += " ".join(ligne) + "\n"
+    
+    sys.stdout.write(output)
+    sys.stdout.flush()
+    time.sleep(delay)

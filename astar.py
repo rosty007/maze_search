@@ -1,10 +1,10 @@
 import time
 import heapq
-from naze import extraire_resultats
+from naze import extraire_resultats, afficher_etape, rafraichir_labyrinthe
 from naze import GOAL, START
 
 
-def resoudre_astar(grille):
+def resoudre_astar(grille, anime=False):
     """
     Algorithme A* (A-Star).
     Utilise une file de priorité et une heuristique (Manhattan).
@@ -21,6 +21,8 @@ def resoudre_astar(grille):
     g_score = {START: 0} # Coût réel depuis le départ
     parents = {START: None}
     explores = []
+
+    print("\n" * 16)
 
     while pq:
         _, curr = heapq.heappop(pq) # On récupère le nœud ayant le plus petit f_score
@@ -41,6 +43,11 @@ def resoudre_astar(grille):
                     f = tentative_g + h(nxt)
                     parents[nxt] = curr
                     heapq.heappush(pq, (f, nxt))
-                    
+
+        if anime:              
+            # afficher_etape(grille, explores, "A* : Exploration en cours ---- ")
+            # print("\n" * 16)
+            rafraichir_labyrinthe(grille, explores, "Exploration A* en cours...", premiere_fois=False)
+
     fin_t = time.perf_counter()
     return extraire_resultats(parents, explores, fin_t - debut_t)
