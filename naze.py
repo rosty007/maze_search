@@ -84,25 +84,6 @@ def formater_chemin_str(chemin):
     return " -> ".join(etapes)
 
 
-def effacer_console():
-    """Efface le contenu de la console selon le système d'exploitation."""
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-def afficher_etape(grille, explores, titre, delay=0.25):
-    """Affiche une 'frame' de l'exploration."""
-    effacer_console()
-    print(f"--- {titre} ---")
-    # On crée une copie pour l'affichage
-    visu = [ligne[:] for ligne in grille]
-    for (x, y) in explores:
-        if visu[x][y] not in ('S', 'G'):
-            visu[x][y] = 'p'
-    
-    for ligne in visu:
-        print(" ".join(ligne))
-    time.sleep(delay)
-
-
 def rafraichir_labyrinthe(grille, explores, titre, delay=0.5, premiere_fois=False):
     """
     Met à jour l'affichage pendant l'exploration par l'algorithme pour voir étape par étape le parcours.
