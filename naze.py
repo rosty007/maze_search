@@ -9,8 +9,10 @@ import time
 TAILLE = 16
 START = (1, 1)
 GOAL = (TAILLE - 2, TAILLE - 2)
+SEED = 42
+TAUX_MURS_INTERIEURS = 0.25
 
-def generer_labyrinthe(seed=42):
+def generer_labyrinthe(seed=SEED):
     """
     Génère une matrice 2D de 16x16 avec des murs extérieurs et des obstacles aléatoires.
     Garantit qu'un chemin existe entre S et G.
@@ -25,8 +27,8 @@ def generer_labyrinthe(seed=42):
                 # Placement des murs extérieurs (bordures)
                 if i == 0 or i == TAILLE-1 or j == 0 or j == TAILLE-1:
                     grille[i][j] = '#'
-                # Placement aléatoire des murs intérieurs (densité ~60%)
-                elif (i, j) != START and (i, j) != GOAL and random.random() < 0.4:
+                # Placement aléatoire des murs intérieurs (densité ~TAUX_MURS_INTERIEURS)
+                elif (i, j) != START and (i, j) != GOAL and random.random() < TAUX_MURS_INTERIEURS:
                     grille[i][j] = '#'
         
         # Placement des points de départ et d'arrivée

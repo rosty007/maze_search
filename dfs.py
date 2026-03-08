@@ -1,5 +1,5 @@
 import time
-from naze import extraire_resultats, afficher_etape, rafraichir_labyrinthe
+from naze import extraire_resultats, rafraichir_labyrinthe
 from naze import GOAL, START
 
 # --- FONCTIONS DE RÉSOLUTION ---
@@ -19,7 +19,8 @@ def resoudre_dfs(grille, anime=False):
     # Ordre cible : Droite (0,1), Bas (1,0), Gauche (0,-1), Haut (-1,0)
     priorites = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
-    print("\n" * 16)
+    if anime:
+        print("\n" * 16)
     while pile:
         curr = pile.pop()
         if curr not in explores: 
@@ -36,8 +37,7 @@ def resoudre_dfs(grille, anime=False):
                 parents[nxt] = curr
                 pile.append(nxt)
                 
-        if anime:              
-            #afficher_etape(grille, explores, "DFS : Exploration en cours ---- ---- ")            
+        if anime:
             rafraichir_labyrinthe(grille, explores, "Exploration DFS en cours...", premiere_fois=False)
     fin_t = time.perf_counter()
     return extraire_resultats(parents, explores, fin_t - debut_t)

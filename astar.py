@@ -1,6 +1,6 @@
 import time
 import heapq
-from naze import extraire_resultats, afficher_etape, rafraichir_labyrinthe
+from naze import extraire_resultats, rafraichir_labyrinthe
 from naze import GOAL, START
 
 
@@ -26,7 +26,8 @@ def resoudre_astar(grille, anime=False):
 
     # Les 16 lignes laissées vides ci-dessous vont permettre d'afficher étape par étape le 
     # processus d'exploration
-    print("\n" * 16)
+    if anime:
+        print("\n" * 16)
 
     while pq:
         _, curr = heapq.heappop(pq) # On récupère le nœud ayant le plus petit f_score
@@ -48,8 +49,7 @@ def resoudre_astar(grille, anime=False):
                     parents[nxt] = curr
                     heapq.heappush(pq, (f, nxt))
 
-        if anime:              
-            # afficher chaque étape de l'exploration si le paramètre 'anime' est vrai            
+        if anime:       
             rafraichir_labyrinthe(grille, explores, "Exploration A* en cours...", premiere_fois=False)
 
     fin_t = time.perf_counter()

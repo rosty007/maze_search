@@ -1,6 +1,6 @@
 import time
 from collections import deque
-from naze import extraire_resultats, afficher_etape, rafraichir_labyrinthe
+from naze import extraire_resultats, rafraichir_labyrinthe
 from naze import GOAL, START
 
 
@@ -16,7 +16,8 @@ def resoudre_bfs(grille, anime=False):
     parents = {START: None}
     explores = []
 
-    print("\n" * 16)
+    if anime:
+        print("\n" * 16)
 
     while file:
         curr = file.popleft() # Premier entré, premier sorti
@@ -32,8 +33,6 @@ def resoudre_bfs(grille, anime=False):
                 file.append(nxt)
 
         if anime:              
-            #afficher_etape(grille, explores, "BFS : Exploration en cours ---- ---- ")
-            # print("\n" * 16)
             rafraichir_labyrinthe(grille, explores, "Exploration BFS en cours...", premiere_fois=False)
                 
     fin_t = time.perf_counter()
